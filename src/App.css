@@ -40,8 +40,9 @@
 /* my custom styles */
 
 .square {
-    background: #fff;
-    border: 2px solid #2b2a2a;
+    background: #dbdad6;
+    border: 2px solid #5a5659;
+    border-radius: 5px;
     float: left;
     font-size: 40px;
     font-weight: bold;
@@ -52,4 +53,36 @@
     padding: 0;
     text-align: center;
     width: 50px;
+}
+
+.center-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.glowing-title {
+    animation: glowing 5s linear infinite;
+    color: #1900ff; /* Initial vibrant color */
+    font-family: cursive;
+}
+
+@keyframes glowing {
+    0% {
+        color: #00ff00; /* Vibrant pink */
+    }
+    25% {
+        color: #00ffff; /* Cyan */
+    }
+    50% {
+        color: #ff0000; /* Red */
+    }
+    75% {
+        color: #ffff00; /* Yellow */
+    }
+    100% {
+        color: #ff00ff; /* Vibrant pink */
+    }
 }

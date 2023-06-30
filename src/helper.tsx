@@ -1,18 +1,13 @@
 export type GameStatus = {
-    isGameOver: boolean;
-    whoWon: string | null;
+    state: GameProgress;
+    winner: string | null;
 };
-
-// export type GameStatus1 = {
-//     state: GameProgress;
-//     winner: string | null;
-
-// }
 
 export enum GameProgress {
     NotStarted,
     InPlay,
     Over,
+    Unknown,
 }
 
 export default class Helper {
@@ -23,10 +18,19 @@ export default class Helper {
         column: number
     ): GameStatus {
         if (Helper.ScanMatrix(matrix)) {
-            return { isGameOver: true, whoWon: xo };
-        }
+            return { state: GameProgress.Over, winner: xo };
+        } else {
+            let blankCount = 0;
+            matrix.forEach((x) => {
+                if (x.indexOf("") >= 0) blankCount++;
+            });
 
-        return { isGameOver: false, whoWon: null };
+            if (blankCount > 0) {
+                return { state: GameProgress.InPlay, winner: null };
+            } else {
+                return { state: GameProgress.Over, winner: "XO" };
+            }
+        }
     }
 
     static ScanMatrix(matrix: string[][]): boolean {

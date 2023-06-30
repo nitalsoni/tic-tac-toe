@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { GameStatus } from "../helper";
+import { GameProgress, GameStatus } from "../helper";
 //import { GameStatusContext } from "../contexts/GameContextProvider";
 
 const initContextState = {
-    gameStaus: {},
+    gameStaus: { state: GameProgress.Over, winner: null },
     setGameStatus: (status: any) => {},
 };
 
 export const GameStatusContext = React.createContext<any>(initContextState);
 
 export function GameStatusProvider({ children }: any) {
-    const [gameStatus, setGameStaus] = useState<GameStatus>({
-        isGameOver: false,
-        whoWon: null,
+    const [gameStatus, setGameStatus] = useState<GameStatus>({
+        state: GameProgress.Over,
+        winner: null,
     });
 
     return (
-        <GameStatusContext.Provider value={{ gameStatus, setGameStaus }}>
+        <GameStatusContext.Provider value={{ gameStatus, setGameStatus }}>
             {children}
         </GameStatusContext.Provider>
     );

@@ -1,23 +1,26 @@
 import React, { useState, useContext } from "react";
 import Board from "./Board";
-import StartStop, { GameAction } from "./StartStop";
+import StartStop from "./StartStop";
 import { GameStatus } from "../helper";
 import { GameStatusContext } from "../contexts/GameContextProvider";
+import Announcement from "./Announcement";
 
 export default function Game() {
-    const [isEnabled, setIsEnabled] = useState<boolean>(true);
+    const [count, setCount] = useState(0);
     const { gameStatus } = useContext(GameStatusContext);
 
     return (
-        <div className="row">
-            <StartStop
-                onClick={(action: GameAction) => {
-                    setIsEnabled(action === GameAction.Start);
-                }}
-            ></StartStop>
-            <Board key="myboard"></Board>
-
-            <h1>{gameStatus?.whoWon}</h1>
+        <div className="center-div">
+            <div>
+                <h1 className="glowing-title">Tic-Tac-Toe</h1>
+                <Board key={count}></Board>
+                <StartStop
+                    onClick={(action: GameStatus) => {
+                        setCount(count + 1);
+                    }}
+                ></StartStop>
+                <Announcement></Announcement>
+            </div>
         </div>
     );
 }

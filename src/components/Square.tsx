@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GameStatusContext } from "../contexts/GameContextProvider";
+import { GameProgress } from "../helper";
 
 type SquareType = {
     row: number;
@@ -22,12 +23,16 @@ export default function Square(props: SquareType) {
     };
 
     return (
-        <button
-            className="square"
-            onClick={onSelection}
-            disabled={gameStatus?.isGameOver}
-        >
-            {element}
-        </button>
+        <>
+            {
+                <button
+                    className="square"
+                    onClick={onSelection}
+                    disabled={gameStatus.state !== GameProgress.InPlay}
+                >
+                    {element}
+                </button>
+            }
+        </>
     );
 }

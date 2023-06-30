@@ -1,34 +1,37 @@
-import React, { useState } from "react";
-
-export enum GameAction {
-    Start = "PLAY",
-    Stop = "END GAME",
-}
+import React, { useState, useContext } from "react";
+import { GameStatusContext } from "../contexts/GameContextProvider";
+import Helper, { GameProgress, GameStatus } from "../helper";
 
 type StartStopType = {
-    onClick: (action: GameAction) => void;
+    onClick: (action: GameStatus) => void;
 };
 
 function StartStop(props: StartStopType) {
-    const [label, setLabel] = useState("Play");
+    const { gameStatus, setGameStatus } = useContext(GameStatusContext);
 
     const handleClick = () => {
-        setLabel((l) =>
-            l.toUpperCase() === GameAction.Start
-                ? GameAction.Stop
-                : GameAction.Start
-        );
-        props.onClick(label as GameAction);
+        let result: GameStatus = { state: GameProgress.Unknown, winner: null };
+        if (gameStatus?.state !== GameProgress.InPlay) {
+            result.state = GameProgress.InPlay;
+            setGameStatus({ ...result });
+        } else {
+            result.state = GameProgress.Over;
+            setGameStatus({ ...result });
+        }
+
+        props.onClick(result);
     };
 
     return (
-        <button
-            className="btn btn-primary"
-            onClick={handleClick}
-            style={{ width: "110px" }}
-        >
-            {label}
-        </button>
+        <>
+            <button
+                className="btn btn-primary"
+                onClick={handleClick}
+                style={{ width: "110px" }}
+            >
+                {gameStatus.state !== GameProgress.InPlay ? "PLAY" : "END GAME"}
+            </button>
+        </>
     );
 }
 

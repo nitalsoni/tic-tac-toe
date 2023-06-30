@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import Square from "./Square";
-import Helper, { GameStatus } from "../helper";
+import Helper, { GameProgress, GameStatus } from "../helper";
 import { GameStatusContext } from "../contexts/GameContextProvider";
 
 export default function Board() {
-    const [boardSize, setBoardSize] = useState<number>(3);
+    const [boardSize, setBoardSize] = useState<number>(4);
     const [isXNext, setisXNext] = useState<boolean>(true);
-    const { gameStaus, setGameStaus } = useContext(GameStatusContext);
+    const { gameStaus, setGameStatus } = useContext(GameStatusContext);
 
     const [matrix, setMatrix] = useState<string[][]>(
         Array.from({ length: boardSize }, () =>
@@ -24,8 +24,7 @@ export default function Board() {
             row,
             column
         );
-        setGameStaus({ ...status });
-        //props.onSelection(status);
+        if (status.state !== GameProgress.InPlay) setGameStatus({ ...status });
     };
 
     const nextElement = (): string => {
@@ -33,14 +32,13 @@ export default function Board() {
             setisXNext((x) => !x);
             return "X";
         } else {
-            //isXNext = !isXNext;
             setisXNext(!isXNext);
             return "0";
         }
     };
 
     return (
-        <>
+        <div>
             {matrix.map((row, rowIndex) => (
                 <div>
                     {row.map((column, columnIndex) => (
@@ -55,7 +53,7 @@ export default function Board() {
                     ))}
                 </div>
             ))}
-        </>
+        </div>
     );
 }
 
