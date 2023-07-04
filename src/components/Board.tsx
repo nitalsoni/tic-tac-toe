@@ -2,9 +2,10 @@ import React, { useState, useContext } from "react";
 import Square from "./Square";
 import Helper, { GameProgress, GameStatus } from "../helper";
 import { GameStatusContext } from "../contexts/GameContextProvider";
+import { XOIconChoice } from "./Game";
 
-export default function Board() {
-    const [boardSize, setBoardSize] = useState<number>(4);
+export default function Board(props: BoardType) {
+    const [boardSize, setBoardSize] = useState<number>(3);
     const [isXNext, setisXNext] = useState<boolean>(true);
     const { gameStaus, setGameStatus } = useContext(GameStatusContext);
 
@@ -49,6 +50,7 @@ export default function Board() {
                             value={matrix[rowIndex][columnIndex]}
                             onSelection={onSquareSelection}
                             onNextElement={nextElement}
+                            iconChoice={props.iconChoice}
                         ></Square>
                     ))}
                 </div>
@@ -58,6 +60,7 @@ export default function Board() {
 }
 
 type BoardType = {
-    onSelection: (status: GameStatus) => void;
-    isEnabled: boolean;
+    //onSelection: (status: GameStatus) => void;
+    //isEnabled: boolean;
+    iconChoice: XOIconChoice[];
 };

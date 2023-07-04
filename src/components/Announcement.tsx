@@ -7,7 +7,7 @@ function Announcement() {
 
     console.log("Announcement rendered");
     return (
-        <h2>
+        <h2 className="text-warning">
             {gameStatus.state === GameProgress.Over && gameStatus.winner
                 ? `Winner is ${gameStatus.winner}`
                 : ""}
