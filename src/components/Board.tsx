@@ -1,19 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Square from "./Square";
 import Helper, { GameProgress, GameStatus } from "../helper";
 import { GameStatusContext } from "../contexts/GameContextProvider";
 import { XOIconChoice } from "./Game";
 
 export default function Board(props: BoardType) {
-    const [boardSize, setBoardSize] = useState<number>(3);
     const [isXNext, setisXNext] = useState<boolean>(true);
     const { gameStaus, setGameStatus } = useContext(GameStatusContext);
 
     const [matrix, setMatrix] = useState<string[][]>(
-        Array.from({ length: boardSize }, () =>
-            Array.from({ length: boardSize }, () => "")
+        Array.from({ length: props.boardSize }, () =>
+            Array.from({ length: props.boardSize }, () => "")
         )
     );
+
+    useEffect(() => {
+        setMatrix(
+            Array.from({ length: props.boardSize }, () =>
+                Array.from({ length: props.boardSize }, () => "")
+            )
+        );
+    }, [props.boardSize]);
+
+    console.log("boardi size" + props.boardSize);
 
     const onSquareSelection = (row: number, column: number, value: string) => {
         let copy = [...matrix];
@@ -63,4 +72,5 @@ type BoardType = {
     //onSelection: (status: GameStatus) => void;
     //isEnabled: boolean;
     iconChoice: XOIconChoice[];
+    boardSize: number;
 };

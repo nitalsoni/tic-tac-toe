@@ -27,9 +27,9 @@ export default function Square(props: SquareType) {
     };
 
     const getIconName = (xo: string): any => {
-        return xo == "X"
+        return xo === "X"
             ? props.iconChoice[0].IconName
-            : xo == "0"
+            : xo === "0"
             ? props.iconChoice[1].IconName
             : null;
     };
@@ -46,7 +46,7 @@ export default function Square(props: SquareType) {
                     {getIconName(element) && (
                         <Icon
                             iconName={getIconName(element)}
-                            color="royalblue"
+                            color={element === "X" ? "RoyalBlue" : "#e6258f"}
                             size={40}
                             className="align-top"
                         />
