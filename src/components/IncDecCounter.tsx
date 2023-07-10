@@ -16,7 +16,7 @@ function IncDecCounter(props: IncDecCounterType) {
 
     return (
         <input
-            type="text"
+            type="number"
             className="text"
             value={boardSize}
             disabled={gameStatus.state === GameProgress.InPlay}

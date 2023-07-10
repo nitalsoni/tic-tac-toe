@@ -10,8 +10,6 @@ export default function Game() {
     const [count, setCount] = useState(0);
     const [boardSize, setBoardSize] = useState<number>(3);
 
-    console.log("Game comp rendered");
-
     const [iconChoice, setIconChoice] = useState<XOIconChoice[]>([
         { XO: "X", IconName: "XLg" },
         { XO: "0", IconName: "Circle" },
@@ -25,10 +23,6 @@ export default function Game() {
     };
 
     const onBoardSizeChange = (size: number) => {
-        //debugger;
-        //if (size > 3 && size < 10) setBoardSize(size);
-        //else setBoardSize(3);
-        //setBoardSize(() => (size > 3 && size < 10 ? size : 3));
         setBoardSize(size);
     };
 
